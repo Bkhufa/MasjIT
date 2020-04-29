@@ -88,6 +88,7 @@ class UserController extends ControllerBase
     {
         $this->authorized();
         $email = $this->session->get("email");
+        $success = false;
         
         $exist = Users::findFirst(
             [
@@ -120,15 +121,18 @@ class UserController extends ControllerBase
         }
         if($success)
         {
-            echo "<div class='alert alert-success'> Profile Changed! </div>";
+            echo "<div class='alert alert-success'> Profile Saved! </div>";
             header("refresh:2;url=/user/profile");
         } else 
         {
-            $messages = $user->getMessages();
+            echo "<div class='alert alert-danger'> Profile not saved! </div>";
+            header("refresh:2;url=/user/editProfile");
 
-            foreach ($messages as $message) {
-                echo "<div class='alert alert-danger'>", $message->getMessage(), "</div>";
-            }
+            // $messages = $exist->getMessages();
+
+            // foreach ($messages as $message) {
+            //     echo "<div class='alert alert-danger'>", $message->getMessage(), "</div>";
+            // }
         }
     }
 

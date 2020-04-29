@@ -54,18 +54,30 @@ class UangController extends ControllerBase
     {
         $this->authorized();
 
-        $this->view->uangs = Uang::find(
-            [
-                'conditions' => "uang_nominal > 0",
-            ]
-        );
-        $this->view->total = Uang::sum(
+        $this->view->totalUang = Uang::sum(
             [
                 'column' => 'uang_nominal',
             ]
         );
+        $this->view->donasi = Uang::find(
+            [
+                'conditions' => "uang_nominal > 0",
+            ]
+        );
+        $this->view->totalDonasi = Uang::sum(
+            [
+                'column' => 'uang_nominal',
+                'conditions' => "uang_nominal > 0",
+            ]
+        );
         $this->view->pengeluarans = Uang::find(
             [
+                'conditions' => "uang_nominal < 0",
+            ]
+        );
+        $this->view->totalPengeluaran = Uang::sum(
+            [
+                'column' => 'uang_nominal',
                 'conditions' => "uang_nominal < 0",
             ]
         );
@@ -87,8 +99,18 @@ class UangController extends ControllerBase
 
             $success = $uang->save();
         }
-
-        if ($success) {
+        $this->view->totalUang = Uang::sum(
+            [
+                'column' => 'uang_nominal',
+            ]
+        );
+        if ($this->view->totalUang < 0)
+        {
+            $uang->delete();
+            echo "<div class='alert alert-danger'>Saldo uang kas tidak mencukupi</div>";
+            header("refresh:2;url=/uang/lihatuang");
+        }
+        else if ($success) {
             echo "<div class='alert alert-success'> Pengeluaran tercatat! </div>";
             header("refresh:2;url=/uang/lihatuang");
         } else {

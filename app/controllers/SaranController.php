@@ -42,7 +42,7 @@ class SaranController extends ControllerBase
             }
         }
         // $this->view->message = $message;
-        $this->view->disable();
+        // $this->view->disable();
     }
 
     public function lihatsaranAction()

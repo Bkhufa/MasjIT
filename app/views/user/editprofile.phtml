@@ -7,12 +7,12 @@
 
         <div class="form-group">
             <label for="name">Full Name</label>
-            <?php echo $this->tag->textField(['name', "class" => "form-control", "value" => $this->session->get('name') ]); ?>
+            <?php echo $this->tag->textField(['name', "class" => "form-control", "value" => $this->session->get('name'), "required" => "1" ]); ?>
         </div>
 
         <div class="form-group">
             <label for="email">Email</label>
-            <?php echo $this->tag->emailField(["email", "class" => "form-control", "value" => $this->session->get('email') ]); ?>
+            <?php echo $this->tag->emailField(["email", "class" => "form-control", "value" => $this->session->get('email'), "required" => "1" ]); ?>
         </div>
 
         <div class="form-group">
@@ -22,12 +22,12 @@
 
         <div class="form-group">
             <label for="address">Addres</label>
-            <?php echo $this->tag->textField(["address", "class" => "form-control", "value" => $this->session->get('address') ]); ?>
+            <?php echo $this->tag->textField(["address", "class" => "form-control", "value" => $this->session->get('address'), "required" => "1" ]); ?>
         </div>
         
         <div class="form-group">
             <label for="phone">Phone Number</label>
-            <?php echo $this->tag->textField(["phone", "class" => "form-control", "value" => $this->session->get('phone') ]); ?>
+            <?php echo $this->tag->textField(["phone", "class" => "form-control", "value" => $this->session->get('phone'), "required" => "1" ]); ?>
         </div>
 
         <?= $this->tag->linkTo(["user/profile", 'Cancel Edit', "class" => "btn btn-danger"]); 
