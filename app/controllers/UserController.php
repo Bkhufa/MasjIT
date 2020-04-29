@@ -1,0 +1,136 @@
+<?php
+
+declare(strict_types=1);
+use Phalcon\Security;
+// use Phalcon\Mvc\Controller;
+
+class UserController extends ControllerBase
+{
+
+    public function indexAction()
+    {
+       
+    }
+
+    public function loginpageAction()
+    {
+       
+    }
+
+    public function loginAction()
+    {
+        if($this->request->isPost())
+        { 
+         $email    = $this->request->getPost('email');
+         $password = $this->request->getPost('password');
+         echo "</br>";
+         $user = Users::findFirst(     // Nyari user berdasar Email yang diinput
+             [
+                 'conditions' => 'email = :email:',
+                 'bind'       => [
+                     'email' => $email,
+                 ],
+             ]
+         );
+ 
+         if ($user) { //Memeriksa apakah user ada
+            $check = $this
+               ->security
+               ->checkHash($password, $user->password); //Memeriksa apakah password sesuai
+
+             if (true == $check) {  
+                 //Password benar
+                 $this->session->set('id', $user->id);
+                 $this->session->set('name', $user->name);
+                 $this->session->set('email', $user->email);
+                 $this->session->set('phone', $user->phone);
+                 $this->session->set('address', $user->address);
+                 return $this->dispatcher->forward(array( 
+                     'controller' => 'index',
+                     'action' => 'index' 
+                 )); 
+                 echo "<div class='alert alert-success'> You're Logged in! </div>";
+             }
+             else {
+                //Password salah
+                echo "<div class='alert alert-danger'> Wrong password! </div>";
+                header("refresh:2;url=/user/loginpage");
+             }
+         }
+         else {
+            //User tidak ada di database
+            echo "<div class='alert alert-danger'> User doesn't exist, please sign up! </div>";
+             header("refresh:2;url=/user/loginpage");
+            //  $this->security->hash(rand());
+         }
+        }
+     }
+
+    public function logoutAction() { 
+        //   $this->session->remove('auth');
+        $this->session->destroy();
+        return $this->dispatcher->forward(array( 
+            'controller' => 'index', 'action' => 'index' 
+        )); 
+    }
+
+    public function profileAction() 
+    {
+        $this->authorized();
+    }
+
+    public function editProfileAction()
+    {
+        $this->authorized();
+    }
+
+    public function editedProfileAction()
+    {
+        $this->authorized();
+        $email = $this->session->get("email");
+        
+        $exist = Users::findFirst(
+            [
+                'conditions' => 'email = :email:',
+                'bind'       => [
+                    'email' => $email,
+                ],
+            ]
+        );
+
+        if($exist)
+        {
+            $dataSent = $this->request->getPost();
+
+            $security = new Security();
+            
+            $hashed = $security->hash($dataSent["password"]);
+            $exist->name = $dataSent["name"];
+            $exist->email = $dataSent["email"];
+            $exist->password = $hashed;
+            $exist->address = $dataSent["address"];
+            $exist->phone = $dataSent["phone"];
+    
+            $success = $exist->update();
+
+            $this->session->set('name', $exist->name);
+            $this->session->set('email', $exist->email);
+            $this->session->set('address', $exist->address);
+            $this->session->set('phone', $exist->phone);
+        }
+        if($success)
+        {
+            echo "<div class='alert alert-success'> Profile Changed! </div>";
+            header("refresh:2;url=/user/profile");
+        } else 
+        {
+            $messages = $user->getMessages();
+
+            foreach ($messages as $message) {
+                echo "<div class='alert alert-danger'>", $message->getMessage(), "</div>";
+            }
+        }
+    }
+
+}
+

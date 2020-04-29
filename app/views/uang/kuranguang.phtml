@@ -1,0 +1,32 @@
+<h2>Tambah Pengeluaran Masjid</h2><hr>
+
+<div class="card">
+    <div class="card-body">
+    
+<p><?php echo $this->flashSession->output() ?></p>
+
+<?php echo $this->tag->form("uang/pengeluaran"); ?>
+
+        <div class="row">
+            <div class="col form-group">
+                <label for="uang_nominal">Nominal (Rp)</label>
+                <!-- <?php echo $this->tag->selectStatic(['uang_nominal',["Kebersihan" => "Kebersihan", "Keamanan" => "Keamanan", "Kegiatan" => "Kegiatan", "Pelayanan" => "Pelayanan"], "class" => "form-control"]); ?> -->
+                <?php echo $this->tag->numericField(["uang_nominal", "class" => "form-control", "step" => "1000", "onblur" => "this.value= -Math.abs(this.value)", "onfocus" => "this.value= Math.abs(this.value)"]); ?>
+            </div>
+
+            <div class="col-12 form-group">
+                <label for="uang_pesan">Keterangan</label>
+                <?php echo $this->tag->textArea(["uang_pesan", "class" => "form-control", "required" => "1"]); ?>
+            </div>
+            
+            <div class="col-12 form-group">
+            <?php 
+                echo $this->tag->submitButton(["Submit", "class" => "btn btn-primary"]), PHP_EOL; 
+            ?>
+            </div>
+        </div>
+        
+    </form>
+
+    </div>
+</div>

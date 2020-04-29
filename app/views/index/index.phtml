@@ -1,0 +1,87 @@
+<?php
+
+if ($this->session->has('name')) {
+    // Retrieve its value
+    $name = $this->session->name;
+
+echo "<h2>Welcome " . $name . "!</h2><hr>";
+?>
+<div class="row">
+        <div class="card col border-secondary bg-light" style="margin: 10px 10px;">
+            <div class="card-header">
+                <h3>Kelola Kegiatan</h3>
+            </div>
+            <div class="card-body text-center">
+                <!-- <h4 class"card-title">Kegiatan</h4> -->
+                <p>Tambahkan kegiatan baru, Edit kegiatan yang sudah ada, atau Hapus kegiatan yang tidak jadi dilaksanakan</p>
+            </div>
+            <a href="#" class="card-footer text-center bg-secondary text-light">See More</a>
+        </div>
+        <div class="card col border-secondary bg-light" style="margin: 10px 10px;">
+            <div class="card-header">
+                <h3>Kelola Keuangan</h3>
+            </div>
+            <div class="card-body text-center">
+                <!-- <h4 class"card-title">Kegiatan</h4> -->
+                <p>Lihat total keuangan masjid, dan catat pengeluarannya disini</p>
+            </div>
+            <a href="uang/lihatuang" class="card-footer text-center bg-secondary text-light">See More</a>
+        </div>
+        <div class="card col border-secondary bg-light" style="margin: 10px 10px;">
+            <div class="card-header">
+                <h3>Lihat Kritik & Saran</h3>
+            </div>
+            <div class="card-body text-center">
+                <!-- <h4 class"card-title">Kegiatan</h4> -->
+                <p>Kritik dan masukan yang dikirimkan jamaah akan ditampilkan disini</p>
+            </div>
+            <a href="saran/lihatsaran" class="card-footer text-center bg-secondary text-light">See More</a>
+        </div>
+    </div>
+<?php
+
+// echo $this->tag->linkTo("/user/logout", "Logout");
+}
+else {
+    ?>
+    
+    <div class="page-header">
+        <h1>Welcome to MasjIT</h1>
+        <h6>Sistem Informasi Masjid berbasis IT</h6>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="card col border-secondary bg-light" style="margin: 10px 10px;">
+            <div class="card-header">
+                <h3>Kegiatan</h3>
+            </div>
+            <div class="card-body text-center">
+                <!-- <h4 class"card-title">Kegiatan</h4> -->
+                <p>Lihat kegiatan apa saja yang akan diadakan dimasjid dan daftarkan diri anda sekarang juga!</p>
+            </div>
+            <a href="#" class="card-footer text-center bg-secondary text-light">See More</a>
+        </div>
+        <div class="card col border-secondary bg-light" style="margin: 10px 10px;">
+            <div class="card-header">
+                <h3>Donasi</h3>
+            </div>
+            <div class="card-body text-center">
+                <!-- <h4 class"card-title">Kegiatan</h4> -->
+                <p>Ayo berdonasi kepada masjid sekarang! Donasi anda akan membantu kami merawat masjid dan melancarkan kegiatan masjid</p>
+            </div>
+            <a href="uang/tambahuang" class="card-footer text-center bg-secondary text-light">See More</a>
+        </div>
+        <div class="card col border-secondary bg-light" style="margin: 10px 10px;">
+            <div class="card-header">
+                <h3>Kritik & Saran</h3>
+            </div>
+            <div class="card-body text-center">
+                <!-- <h4 class"card-title">Kegiatan</h4> -->
+                <p>Kritik dan masukan apapun akan sangat berarti agar kami dapat memperbaiki diri menjadi lebih baik</p>
+            </div>
+            <a href="saran/tambahsaran" class="card-footer text-center bg-secondary text-light">See More</a>
+        </div>
+    </div>
+
+    <?php
+}

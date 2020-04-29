@@ -1,0 +1,91 @@
+<?php
+
+$i = 0;
+$j = 0;
+echo "<div class='row' style='margin: 10px 0px'>";
+echo "<h2 class='col'>Riwayat Keuangan</h2>";
+echo "<h2 class='col text-right'>Total: ", $total, "</h2>";
+echo "</div>";
+?>
+<br>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Donasi</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Pengeluaran</a>
+  </li>
+
+<!-- </ul> -->
+<!-- <ul class="nav justify-content-end"> -->
+<?php
+  echo $this->tag->linkTo([
+    "/uang/kuranguang",
+    '<li class="nav-item">Tambah Pengeluaran</li>',
+    "class" => "btn border-info ml-auto"
+    ]), "<br>"?>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+<?php
+if ($uangs->count() > 0) {
+    ?>
+    <br>
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <h4>Donasi Jamaah</h4>
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>Pengirim</th>
+                <th>Pesan</th>
+                <th>Nominal (Rp)</th>
+                <th>Waktu</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($uangs as $uang) { $i++ ?>
+                <tr>
+                    <td><?php echo $i ?></td>
+                    <td><?php echo $uang->uang_pengirim; ?></td>
+                    <td><?php echo $uang->uang_pesan; ?></td>
+                    <td><?php echo $uang->uang_nominal; ?></td>
+                    <td><?php echo $uang->updated; ?></td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
+    <?php
+}
+
+if ($pengeluarans->count() > 0) {
+    ?>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <h4>Pengeluaran</h4>
+        <table class="table table-bordered table-hover">
+            <thead class="thead bg-danger text-light">
+            <tr>
+                <th>#</th>
+                <th>Pengirim</th>
+                <th>Pesan</th>
+                <th>Nominal (Rp)</th>
+                <th>Waktu</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($pengeluarans as $uang) { $j++ ?>
+                <tr>
+                    <td><?php echo $j ?></td>
+                    <td><?php echo $uang->uang_pengirim; ?></td>
+                    <td><?php echo $uang->uang_pesan; ?></td>
+                    <td><?php echo $uang->uang_nominal; ?></td>
+                    <td><?php echo $uang->updated; ?></td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+    <?php
+}

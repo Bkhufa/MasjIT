@@ -1,0 +1,34 @@
+<?php
+
+echo "<h2>Masukan dari jamaah</h2><hr>";
+$i = 0;
+
+if ($sarans->count() > 0) {
+    ?>
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Pengirim</th>
+            <th>Kategori</th>
+            <th>Pesan</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <td colspan="4">Total saran: <?php echo $sarans->count(); ?></td>
+        </tr>
+        </tfoot>
+        <tbody>
+        <?php foreach ($sarans as $saran) { $i++ ?>
+            <tr>
+                <td><?php echo $i ?></td>
+                <td><?php echo $saran->saran_name; ?></td>
+                <td><?php echo $saran->saran_category; ?></td>
+                <td><?php echo $saran->saran_isi; ?></td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+    <?php
+}
