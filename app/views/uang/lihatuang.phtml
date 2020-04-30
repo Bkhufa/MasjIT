@@ -8,22 +8,16 @@ echo "<h2 class='col text-right'>Total keuangan: Rp ", number_format($totalUang,
 echo "</div><hr>";
 ?>
 <br>
-<ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
+<ul class="nav nav-pills nav-fill" id="myTab" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Donasi</a>
   </li>
-  <li class="nav-item">
+  <li class="nav-item" style="margin: 0 10px;">
     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Pengeluaran</a>
   </li>
-
-<!-- </ul> -->
-<!-- <ul class="nav justify-content-end"> -->
-<?php
-  echo $this->tag->linkTo([
-    "/uang/kuranguang",
-    '<li class="nav-item">Catatat Pengeluaran &nbsp;<i class="fas fa-plus" aria-hidden="true"></i></li>',
-    "class" => "btn border-info"
-    ]), "<br>"?>
+  <!-- <li class="nav-item"> -->
+    <a class="btn border-info" id="profile-tab" data-toggle="modal" href="#modal-tambah" role="tab" aria-controls="profile" aria-selected="false">Catatat Pengeluaran &nbsp;<i class="fas fa-plus" aria-hidden="true"></i></a>
+  <!-- </li> -->
 </ul>
 
 <div class="tab-content" id="myTabContent">
@@ -32,7 +26,7 @@ if ($donasi->count() > 0) {
     ?>
     <br>
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-        <h4>Donasi Jamaah</h4>
+        <h3 class="text-center">Donasi Jamaah</h3>
         <table class="table table-bordered table-hover text-center">
             <thead class="thead-dark">
             <tr>
@@ -41,21 +35,26 @@ if ($donasi->count() > 0) {
                 <th>Pesan</th>
                 <th>Nominal (Rp)</th>
                 <th>Waktu</th>
+                <th>Bukti</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
-                <td class="text-left bg-secondary text-white font-weight-bold" colspan="5">Total donasi: <?php echo "Rp ", number_format(abs($totalDonasi), 0, ".", "."); ?></td>
+                <td class="text-left bg-secondary text-white font-weight-bold" colspan="6">Total donasi: <?php echo "Rp ", number_format(abs($totalDonasi), 0, ".", "."); ?></td>
             </tr>
             </tfoot>
             <tbody>
             <?php foreach ($donasi as $uang) { $i++ ?>
-                <tr>
-                    <td><?php echo $i ?></td>
-                    <td><?php echo $uang->uang_pengirim; ?></td>
-                    <td class="text-left"><?php echo $uang->uang_pesan; ?></td>
-                    <td><?php echo number_format(abs($uang->uang_nominal), 0, ".", "."); ?></td>
-                    <td><?php echo $uang->updated; ?></td>
+                <tr >
+                    <td class="align-middle"><?php echo $i ?></td>
+                    <td class="align-middle"><?php echo $uang->uang_pengirim; ?></td>
+                    <td class="align-middle text-left"><?php echo $uang->uang_pesan; ?></td>
+                    <td class="align-middle"><?php echo number_format(abs($uang->uang_nominal), 0, ".", "."); ?></td>
+                    <td class="align-middle"><?php echo $uang->updated; ?></td>
+                    <td class="align-middle"><img class="img-responsive center-block" 
+                        height="200" width="100" 
+                        src="data:image/jpeg;base64,<?php echo $uang->getUangBukti() ?>">
+                    </td>
                 </tr>
             <?php } ?>
             </tbody>
@@ -67,7 +66,7 @@ if ($donasi->count() > 0) {
 if ($pengeluarans->count() > 0) {
     ?>
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        <h4>Pengeluaran</h4>
+        <h3 class="text-center">Pengeluaran</h3>
         <table class="table table-bordered table-hover text-center">
             <thead class="thead bg-danger text-light">
             <tr>
@@ -76,21 +75,26 @@ if ($pengeluarans->count() > 0) {
                 <th>Pesan</th>
                 <th>Nominal (Rp)</th>
                 <th>Waktu</th>
+                <th>Bukti</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
-                <td class="text-left bg-danger text-white font-weight-bold" colspan="5">Total pengeluaran: <?php echo "Rp ", number_format(abs($totalPengeluaran), 0, ".", "."); ?></td>
+                <td class="text-left bg-danger text-white font-weight-bold" colspan="6">Total pengeluaran: <?php echo "Rp ", number_format(abs($totalPengeluaran), 0, ".", "."); ?></td>
             </tr>
             </tfoot>
             <tbody>
             <?php foreach ($pengeluarans as $uang) { $j++ ?>
                 <tr>
-                    <td><?php echo $j ?></td>
-                    <td><?php echo $uang->uang_pengirim; ?></td>
-                    <td class="text-left"><?php echo $uang->uang_pesan; ?></td>
-                    <td><?php echo number_format(abs($uang->uang_nominal), 0, ".", "."); ?></td>
-                    <td><?php echo $uang->updated; ?></td>
+                    <td class="align-middle"><?php echo $j ?></td>
+                    <td class="align-middle"><?php echo $uang->uang_pengirim; ?></td>
+                    <td class="align-middle text-left"><?php echo $uang->uang_pesan; ?></td>
+                    <td class="align-middle"><?php echo number_format(abs($uang->uang_nominal), 0, ".", "."); ?></td>
+                    <td class="align-middle"><?php echo $uang->updated; ?></td>
+                    <td class="align-middle"><img class="img-responsive center-block" 
+                        height="100" width="100" 
+                        src="data:image/jpeg;base64,<?php echo $uang->getUangBukti() ?>">
+                    </td>
                 </tr>
             <?php } ?>
             </tbody>
@@ -98,4 +102,52 @@ if ($pengeluarans->count() > 0) {
     </div>
 </div>
     <?php
-}
+}?>
+
+<div class="modal fade" id="modal-tambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Catat Pengeluaran</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <!-- <?php echo $this->tag->form("uang/pengeluaran"); ?> -->
+        <?php
+        echo $this->tag->form(
+            [
+                "uang/pengeluaran",
+                "autocomplete" => "off",
+                "class" => "form-horizontal",
+                "enctype" => "multipart/form-data"
+            ]
+        );
+    ?>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col form-group">
+                    <label for="uang_nominal">Nominal (Rp)</label>
+                    <!-- <?php echo $this->tag->selectStatic(['uang_nominal',["Kebersihan" => "Kebersihan", "Keamanan" => "Keamanan", "Kegiatan" => "Kegiatan", "Pelayanan" => "Pelayanan"], "class" => "form-control"]); ?> -->
+                    <?php echo $this->tag->numericField(["uang_nominal", "class" => "form-control", "step" => "1000", "onblur" => "this.value= -Math.abs(this.value)", "onfocus" => "this.value= Math.abs(this.value)"]); ?>
+                </div>
+                <div class="col form-group">
+                    <label for="uang_bukti">Struk pengeluaran</label>
+                    <?php echo $this->tag->fileField(["imageFile", "size" => 30, "class" => "form-control", "id" => "uang_bukti"]) ?>
+                </div>
+                <div class="col-12 form-group">
+                    <label for="uang_pesan">Keterangan</label>
+                    <?php echo $this->tag->textArea(["uang_pesan", "class" => "form-control", "required" => "1"]); ?>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <?php echo $this->tag->submitButton(["Submit", "class" => "btn btn-primary"]), PHP_EOL; ?>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+

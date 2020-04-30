@@ -6,14 +6,20 @@ $i = 0;
 if ($sarans->count() > 0) {
     ?>
     <table class="table table-bordered table-hover">
-        <thead class="thead-dark">
+        <thead class="thead bg-secondary text-white text-center">
         <tr>
             <th>#</th>
             <th>Pengirim</th>
             <th>Kategori</th>
             <th>Pesan</th>
+            <th>Waktu</th>
         </tr>
         </thead>
+        <tfoot>
+        <tr>
+            <td colspan="5">Total Kritik & Saran: <?php echo $sarans->count(); ?></td>
+        </tr>
+        </tfoot>
         <tbody>
         <?php foreach ($sarans as $saran) { $i++ ?>
             <tr>
@@ -21,6 +27,7 @@ if ($sarans->count() > 0) {
                 <td><?php echo $saran->saran_name; ?></td>
                 <td><?php echo $saran->saran_category; ?></td>
                 <td><?php echo $saran->saran_isi; ?></td>
+                <td><?php echo $saran->created; ?></td>
             </tr>
         <?php } ?>
         </tbody>

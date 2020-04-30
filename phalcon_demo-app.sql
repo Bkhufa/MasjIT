@@ -81,6 +81,51 @@ ALTER TABLE `uang`
   MODIFY `uang_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
+-- KEGITANANANNNNN
+
+CREATE TABLE `kegiatan` (
+  `kegiatan_id` int(11) NOT NULL,
+  `kegiatan_nama` text NOT NULL,
+  `kegiatan_deskripsi` text NOT NULL,
+  `kegiatan_waktu` text NOT NULL,
+  `kegiatan_lokasi` text NOT NULL,
+  `kegiatan_foto` blob,
+  `kegiatan_pendaftar` text NOT NULL,
+  `kegiatan_updated` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+ALTER TABLE `kegiatan`
+  ADD PRIMARY KEY (`kegiatan_id`);
+
+ALTER TABLE `kegiatan`
+  MODIFY `kegiatan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+COMMIT;
+
+-- KEGITANANANNNNN
+
+CREATE TABLE `pendaftar` (
+  `pendaftar_id` int(11) NOT NULL,
+  `pendaftar_nama` text NOT NULL,
+  `pendaftar_contact` text NOT NULL,
+  `pendaftar_alamat` text NOT NULL,
+  `pendaftar_created` timestamp NOT NULL,
+  `fk_kegiatan_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+ALTER TABLE `pendaftar`
+  ADD PRIMARY KEY (`pendaftar_id`);
+
+ALTER TABLE `pendaftar`  
+  ADD CONSTRAINT fk_kegiatan_id
+  FOREIGN KEY (fk_kegiatan_id)
+  REFERENCES kegiatan(kegiatan_id);
+
+ALTER TABLE `pendaftar`
+  MODIFY `pendaftar_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+COMMIT;
+
 
 --
 -- Table structure for table `articles`

@@ -5,11 +5,40 @@
     
 <p><?php echo $this->flashSession->output() ?></p>
 
-<?php echo $this->tag->form("uang/adduang"); ?>
-
+<!-- <?php echo $this->tag->form("uang/adduang"); ?> -->
+    <?php
+        echo $this->tag->form(
+            [
+                "uang/adduang",
+                "autocomplete" => "off",
+                "class" => "form-horizontal",
+                "enctype" => "multipart/form-data"
+            ]
+        );
+    ?>
+        <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="gopay-tab" data-toggle="tab" href="#gopay" role="tab" aria-controls="gopay" aria-selected="true">Gopay</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="ovo-tab" data-toggle="tab" href="#ovo" role="tab" aria-controls="ovo" aria-selected="false">Ovo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="dana-tab" data-toggle="tab" href="#dana" role="tab" aria-controls="dana" aria-selected="false">Dana</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="linkaja-tab" data-toggle="tab" href="#linkaja" role="tab" aria-controls="linkaja" aria-selected="false">Linkaja</a>
+            </li>
+        </ul>
+        <div class="tab-content text-center" id="myTabContent">
+            <div class="tab-pane fade show active" id="gopay" role="tabpanel" aria-labelledby="gopay-tab"><img class="" height="400" width="400" src="https://1.bp.blogspot.com/-kzndGg4wwa8/XNeG6m5AGYI/AAAAAAAAk0s/wSQtqkx1NTE9e9b6iVwhlpaOmPImyLEPACLcBGAs/s1600/qr.jpg" alt=""></div>
+            <div class="tab-pane fade" id="ovo" role="tabpanel" aria-labelledby="ovo-tab"><img height="400" width="400" src="https://d2d2tb15kqhejt.cloudfront.net/img/ovo_qr_code_83622.jpg" alt=""></div>
+            <div class="tab-pane fade" id="dana" role="tabpanel" aria-labelledby="dana-tab"><img height="400" width="400" src="https://shop.runners.id/wp-content/uploads/2019/05/shareqr-e1558132568327.png" alt=""></div>
+            <div class="tab-pane fade" id="linkaja" role="tabpanel" aria-labelledby="linkaja-tab"><img height="400" width="400" src="https://i2.wp.com/lazismusragen.org/wp-content/uploads/2019/07/link-aja-lazismu-sragen.jpg?resize=300%2C300&ssl=1" alt=""></div>
+        </div>
         <div class="row">
+            
             <div class="col-12 text-center">
-                <img src="https://www.qrcode-monkey.com/img/default-preview-qr.svg" alt="">
             </div>
             <div class="col form-group">
                 <label for="uang_pengirim">Pengirim</label>
@@ -20,6 +49,11 @@
                 <label for="uang_nominal">Nominal (Rp)</label>
                 <!-- <?php echo $this->tag->selectStatic(['uang_nominal',["Kebersihan" => "Kebersihan", "Keamanan" => "Keamanan", "Kegiatan" => "Kegiatan", "Pelayanan" => "Pelayanan"], "class" => "form-control"]); ?> -->
                 <?php echo $this->tag->numericField(["uang_nominal", "class" => "form-control", "step" => "1000", "min" => "0"]); ?>
+            </div>
+            
+            <div class="col form-group">
+                <label for="uang_bukti">Bukti pembayaran</label>
+                <?php echo $this->tag->fileField(["imageFile", "size" => 30, "class" => "form-control", "id" => "uang_bukti"]) ?>
             </div>
 
             <div class="col-12 form-group">
@@ -33,8 +67,6 @@
             ?>
             </div>
         </div>
-        
     </form>
-
     </div>
 </div>

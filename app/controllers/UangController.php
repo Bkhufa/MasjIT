@@ -30,6 +30,7 @@ class UangController extends ControllerBase
             $uang->uang_nominal = $dataSent["uang_nominal"];
             $uang->uang_pesan = $dataSent["uang_pesan"];
             $uang->uang_total = $uang->uang_pesan;
+            $uang->setUangBukti(base64_encode(file_get_contents($this->request->getUploadedFiles()[0]->getTempName())));
 
             $success = $uang->save();
         }
@@ -96,6 +97,7 @@ class UangController extends ControllerBase
             $uang->uang_nominal = $dataSent["uang_nominal"];
             $uang->uang_pesan = $dataSent["uang_pesan"];
             $uang->uang_total = $uang->uang_pesan;
+            $uang->setUangBukti(base64_encode(file_get_contents($this->request->getUploadedFiles()[0]->getTempName())));
 
             $success = $uang->save();
         }

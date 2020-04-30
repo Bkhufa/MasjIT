@@ -33,7 +33,7 @@ class Saran extends Model
      * @var string
      * @Column(column="created", type="string", nullable=false)
      */
-    protected $created;
+    public $created;
 
     public function initialize()
     {
