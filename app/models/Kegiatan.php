@@ -44,7 +44,7 @@ class Kegiatan extends Model
      *
      * @var string
      */
-    public $kegiatan_foto;
+    protected $kegiatan_foto;
 
     /**
      *
@@ -64,6 +64,29 @@ class Kegiatan extends Model
     {
         $this->setSchema("fppbkk");
         $this->setSource("Kegiatan");
+    }
+
+    /**
+     * Method to set the value of field kegiatan_foto
+     *
+     * @param string $uang_bukti
+     * @return $this
+     */
+    public function setKegiatanFoto($kegiatan_foto)
+    {
+        $this->kegiatan_foto = $kegiatan_foto;
+
+        return $this;
+    }
+
+    /**
+     * Returns the value of field uang_bukti
+     *
+     * @return string
+     */
+    public function getKegiatanFoto()
+    {
+        return $this->kegiatan_foto;
     }
 
     /**

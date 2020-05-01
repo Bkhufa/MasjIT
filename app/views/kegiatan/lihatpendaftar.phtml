@@ -1,0 +1,36 @@
+<?php
+
+echo "<h2>Peserta kegiatan: ", $kegiatans->kegiatan_nama, "</h2><hr>";
+$i = 0;
+
+if ($pendaftars->count() > 0) {
+    ?>
+    <table class="table table-bordered table-hover">
+        <thead class="thead bg-secondary text-white text-center">
+        <tr>
+            <th>#</th>
+            <th>Nama</th>
+            <th>Email</th>
+            <th>Alamat</th>
+            <th>Waktu Mendaftar</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <td colspan="5">Banyak peserta: <?php echo $pendaftars->count(); ?></td>
+        </tr>
+        </tfoot>
+        <tbody>
+        <?php foreach ($pendaftars as $pendaftar) { $i++ ?>
+            <tr>
+                <td><?php echo $i ?></td>
+                <td><?php echo $pendaftar->pendaftar_nama; ?></td>
+                <td><?php echo $pendaftar->pendaftar_contact; ?></td>
+                <td><?php echo $pendaftar->pendaftar_alamat; ?></td>
+                <td><?php echo $pendaftar->pendaftar_created; ?></td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+    <?php
+}

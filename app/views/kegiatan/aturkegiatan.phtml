@@ -6,41 +6,48 @@ $i = 0;
 if ($kegiatans->count() > 0) {
     ?>
     <table class="table table-bordered table-hover text-center align-bottom">
-        <thead class="thead bg-secondary text-white">
+        <thead class="thead bg-secondary text-white ">
         <tr>
-            <th>#</th>
-            <th>Judul</th>
-            <th>Deskripsi</th>
-            <th>Waktu</th>
-            <th>Tanggal</th>
-            <th>Lokasi</th>
-            <th>Last Modified</th>
+            <th class="align-middle">#</th>
+            <th class="align-middle">Judul</th>
+            <th class="align-middle">Deskripsi</th>
+            <th class="align-middle">Waktu</th>
+            <th class="align-middle">Tanggal</th>
+            <th class="align-middle">Lokasi</th>
+            <th class="align-middle">Last Modified</th>
+            <th class="align-middle">Foto Kegiatan</th>
+
             <th><a href="#modal-tambah" class="btn btn-primary" data-toggle="modal" data-placement="top" title="Tambah kegiatan baru"><i class="fas fa-plus" aria-hidden="true"></i></a></th>
         </tr>
         </thead>
         <tbody>
         <?php foreach ($kegiatans as $kegiatan) { $i++ ?>
             <tr>
-                <td><?php echo $i ?></td>
-                <td><?php echo $kegiatan->kegiatan_nama; ?></td>
-                <td class="text-left"><?php echo $kegiatan->kegiatan_deskripsi; ?></td>
-                <td><?php echo $kegiatan->kegiatan_waktu; ?></td>
-                <td><?php echo $kegiatan->kegiatan_tanggal; ?></td>
-                <td><?php echo $kegiatan->kegiatan_lokasi; ?></td>
-                <td><?php echo $kegiatan->kegiatan_updated; ?></td>
+                <td class="align-middle"><?php echo $i ?></td>
+                <td class="align-middle"><?php echo $kegiatan->kegiatan_nama; ?></td>
+                <td class="align-middle text-left"><?php echo $kegiatan->kegiatan_deskripsi; ?></td>
+                <td class="align-middle"><?php echo $kegiatan->kegiatan_waktu; ?></td>
+                <td class="align-middle"><?php echo $kegiatan->kegiatan_tanggal; ?></td>
+                <td class="align-middle"><?php echo $kegiatan->kegiatan_lokasi; ?></td>
+                <td class="align-middle"><?php echo $kegiatan->kegiatan_updated; ?></td>
+                <td class="align-middle"><img class="img-responsive center-block" 
+                    height="150" width="100" 
+                    src="data:image/jpeg;base64,<?php echo $kegiatan->getKegiatanFoto() ?>">
+                </td>
                 <td>
                     <a href="#modal-edit" class="btn btn-info" data-toggle="modal" data-placement="top" title="Edit Kegiatan"><i class="fas fa-edit" aria-hidden="true"></i></a>
                     <a href="#modal-delete" class="btn btn-danger" data-toggle="modal" data-placement="top" title="Hapus Kegiatan"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
-                    <!-- <?php
+                    <?php
                         echo $this->tag->linkTo([
-                            "/kegiatan/hapuskegiatan/".$kegiatan->kegiatan_id,
-                            'Ya ',
+                            "/kegiatan/lihatpendaftar/".$kegiatan->kegiatan_id,
+                            // '<i class="fas fa-users">',
+                            "Pendaftar",
                             "class" => "btn btn-danger",
                             "data-toggle" =>"tooltip",
                             "data-placement" => "top",
-                            'title' => "Hapus Kegiatan"
+                            'title' => "Lihat Pendaftar"
                         ]);
-                    ?> -->
+                    ?>
                 </td>
             </tr>
         <?php } ?>
@@ -59,7 +66,16 @@ if ($kegiatans->count() > 0) {
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?php echo $this->tag->form("kegiatan/addkegiatan"); ?>
+      <?php
+        echo $this->tag->form(
+            [
+                "kegiatan/addkegiatan",
+                "autocomplete" => "off",
+                "class" => "form-horizontal",
+                "enctype" => "multipart/form-data"
+            ]
+        );
+       ?>  
         <div class="modal-body">
             <div class="row">
                     <div class="col-12 form-group">
@@ -77,9 +93,14 @@ if ($kegiatans->count() > 0) {
                         <input id="kegiatan_tanggal" name="kegiatan_tanggal" class="datepicker form-control" data-date-format="dd/mm/yyyy">
                     </div>
                     
-                    <div class="col form-group">
+                    <div class="col-6 form-group">
                         <label for="kegiatan_lokasi">Lokasi Kegiatan</label>
                         <?php echo $this->tag->textField(["kegiatan_lokasi", "class" => "form-control", "required" => "1"]); ?>
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <label for="kegiatan_foto">Foto Kegiatan</label>
+                        <?php echo $this->tag->fileField(["imageFile", "size" => 30, "class" => "form-control", "id" => "kegiatan_foto"]) ?>
                     </div>
 
                     <div class="col-12 form-group">
@@ -107,7 +128,17 @@ if ($kegiatans->count() > 0) {
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?php echo $this->tag->form("kegiatan/editkegiatan/".$kegiatan->kegiatan_id); ?>
+      <!-- <?php echo $this->tag->form("kegiatan/editkegiatan/".$kegiatan->kegiatan_id); ?> -->
+      <?php
+        echo $this->tag->form(
+          [
+            "kegiatan/editkegiatan/".$kegiatan->kegiatan_id,
+            "autocomplete" => "off",
+            "class" => "form-horizontal",
+            "enctype" => "multipart/form-data"
+          ]
+        );
+       ?> 
         <div class="modal-body">
             <div class="row">
                     <div class="col-12 form-group">
@@ -125,9 +156,14 @@ if ($kegiatans->count() > 0) {
                         <?php echo '<input class="datepicker form-control" id="kegiatan_tanggal" name="kegiatan_tanggal" data-date-format="dd/mm/yyyy" value ="',$kegiatan->kegiatan_tanggal ,'" />'; ?>
                     </div>
                     
-                    <div class="col form-group">
+                    <div class="col-6 form-group">
                         <label for="kegiatan_lokasi">Lokasi Kegiatan</label>
                         <?php echo $this->tag->textField(["kegiatan_lokasi", "class" => "form-control", "required" => "1", "value" => $kegiatan->kegiatan_lokasi]); ?>
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <label for="kegiatan_foto">Foto Kegiatan</label>
+                        <?php echo $this->tag->fileField(["imageFile", "size" => 30, "class" => "form-control", "id" => "kegiatan_foto", "required" => 1]); ?>
                     </div>
 
                     <div class="col-12 form-group">

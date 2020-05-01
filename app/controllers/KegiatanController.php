@@ -11,12 +11,126 @@ class KegiatanController extends ControllerBase
     {
         $this->view->kegiatans = Kegiatan::find();
     }
-
-    public function deleteAction()
+    
+    public function lihatKegiatanAction()
     {
         $this->view->kegiatans = Kegiatan::find();
     }
+    
+    public function lihatPendaftarAction($kegiatan_id)
+    {
+        $this->view->pendaftars = Pendaftar::find([
+            'conditions' => 'fk_kegiatan_id = :kegiatan_id:',
+            'bind'       => [
+                'kegiatan_id' => $kegiatan_id,
+            ],
+        ]);
 
+        $this->view->kegiatans = Kegiatan::findfirst([
+            'conditions' => 'kegiatan_id = :kegiatan_id:',
+            'bind'       => [
+                'kegiatan_id' => $kegiatan_id,
+            ],
+        ]);
+    }
+    
+    public function detailKegiatanAction($kegiatan_id)
+    {
+        $this->view->kegiatan = Kegiatan::findFirst([
+            'conditions' => 'kegiatan_id = :kegiatan_id:',
+            'bind'       => [
+                'kegiatan_id' => $kegiatan_id,
+            ],
+        ]);
+        $this->view->totalpendaftar = Pendaftar::count(
+            [
+                'conditions' => "fk_kegiatan_id = :kegiatan_id:",
+                'bind'       => [
+                    'kegiatan_id' => $kegiatan_id,
+                ],
+            ]
+        );
+    }
+
+    public function daftarKegiatanAction($kegiatan_id)
+    {
+        $dataSent = $this->request->getPost();
+        $email = $this->request->getPost('pendaftar_contact');
+        $pendaftar = new Pendaftar;
+
+        $exist =  Pendaftar::findFirst(     
+            [
+                'conditions' => 'pendaftar_contact = :email: AND fk_kegiatan_id = :kegiatan_id:',
+                'bind'       => [
+                    'email' => $email,
+                    'kegiatan_id' => $kegiatan_id,
+                ],
+            ]
+        );
+        if($exist)
+        {
+            $success = false;
+            header("refresh:2;url=/kegiatan/lihatkegiatan");
+            echo "<div class='alert alert-danger'> Email ini sudah terdaftar pada kegiatan ini! </div>";                
+        }
+
+        else if(!$exist && $this->request->isPost())
+        {
+            $pendaftar->pendaftar_nama = $dataSent["pendaftar_nama"];
+            $pendaftar->pendaftar_contact = $dataSent["pendaftar_contact"];
+            $pendaftar->pendaftar_alamat = $dataSent["pendaftar_alamat"];
+            $pendaftar->fk_kegiatan_id = $kegiatan_id;
+
+            $success = $pendaftar->save();
+        }
+        if($success)
+        {
+            echo "<div class='alert alert-success'>Anda berhasil terdaftar! </div>";
+            header("refresh:2;url=/kegiatan/lihatkegiatan");
+        } else 
+        {
+            $messages = $pendaftar->getMessages();
+
+            foreach ($messages as $message) {
+                echo "<div class='alert alert-danger'>", $message->getMessage(), "</div>";
+            }
+            header("refresh:2;url=/kegiatan/lihatkegiatan");
+        }
+    }
+
+    public function cancelDaftarAction($kegiatan_id)
+    {
+        $email = $this->request->getPost('pendaftar_contact');
+
+        $exist =  Pendaftar::findFirst(     
+            [
+                'conditions' => 'pendaftar_contact = :email: AND fk_kegiatan_id = :kegiatan_id:',
+                'bind'       => [
+                    'email' => $email,
+                    'kegiatan_id' => $kegiatan_id,
+                ],
+            ]
+        );
+        if (!$exist)
+        {
+            echo "<div class='alert alert-danger'> Email belum terdaftar di kegiatan ini!</div>";
+            header("refresh:2;url=/kegiatan/detailkegiatan/".$kegiatan_id);
+        }
+        else if ($exist !== false) 
+        {
+            if ($exist->delete() === false) {
+                $messages = $exist->getMessages();
+
+                foreach ($messages as $message) {
+                    echo "<div class='alert alert-danger'>", $message,  "</div><br>";
+                }
+                header("refresh:2;url=/kegiatan/detailkegiatan/".$kegiatan_id);
+            } else {
+                echo "<div class='alert alert-success'> Pendaftaran berhasil dibatalkan!</div>";
+                header("refresh:2;url=/kegiatan/detailkegiatan/".$kegiatan_id);
+            }
+        } 
+    }
 
     public function addKegiatanAction()
     {
@@ -25,7 +139,6 @@ class KegiatanController extends ControllerBase
         
         $dataSent = $this->request->getPost();
         $kegiatan = new Kegiatan;
-        // $kegiatan_id = $datasent["kegiatan_id"];
          
         if($this->request->isPost())
         {
@@ -34,7 +147,7 @@ class KegiatanController extends ControllerBase
             $kegiatan->kegiatan_waktu = $dataSent["kegiatan_waktu"];
             $kegiatan->kegiatan_tanggal = $dataSent["kegiatan_tanggal"];
             $kegiatan->kegiatan_lokasi = $dataSent["kegiatan_lokasi"];
-            // $kegiatan->kegiatan_foto = $dataSent["kegiatan_foto"];
+            $kegiatan->setKegiatanFoto(base64_encode(file_get_contents($this->request->getUploadedFiles()[0]->getTempName())));
 
             $success = $kegiatan->save();
         }
@@ -72,7 +185,7 @@ class KegiatanController extends ControllerBase
             $exist->kegiatan_deskripsi = $dataSent["kegiatan_deskripsi"];
             $exist->kegiatan_waktu = $dataSent["kegiatan_waktu"];
             $exist->kegiatan_lokasi = $dataSent["kegiatan_lokasi"];
-            // $exist->kegiatan_pendaftar = $dataSent["phone"];
+            $exist->setKegiatanFoto(base64_encode(file_get_contents($this->request->getUploadedFiles()[0]->getTempName())));
 
             $success = $exist->update();
         }

@@ -4,7 +4,7 @@ $i = 0;
 $j = 0;
 echo "<div class='row' style='margin: 10px 0px'>";
 echo "<h2 class='col'>Riwayat Keuangan</h2>";
-echo "<h2 class='col text-right'>Total keuangan: Rp ", number_format($totalUang, 2, ",", "."); ",-</h2>";
+echo "<h2 class='col text-right'>Total keuangan: <span class='font-weight-bold'> Rp ", number_format($totalUang, 2, ",", "."); "</span></h2>";
 echo "</div><hr>";
 ?>
 <br>
@@ -26,7 +26,7 @@ if ($donasi->count() > 0) {
     ?>
     <br>
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-        <h3 class="text-center">Donasi Jamaah</h3>
+        <!-- <h3 class="text-center">Donasi Jamaah</h3> -->
         <table class="table table-bordered table-hover text-center">
             <thead class="thead-dark">
             <tr>
@@ -66,7 +66,7 @@ if ($donasi->count() > 0) {
 if ($pengeluarans->count() > 0) {
     ?>
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        <h3 class="text-center">Pengeluaran</h3>
+        <!-- <h3 class="text-center">Pengeluaran</h3> -->
         <table class="table table-bordered table-hover text-center">
             <thead class="thead bg-danger text-light">
             <tr>
@@ -123,7 +123,7 @@ if ($pengeluarans->count() > 0) {
                 "enctype" => "multipart/form-data"
             ]
         );
-    ?>
+       ?>  
         <div class="modal-body">
             <div class="row">
                 <div class="col form-group">

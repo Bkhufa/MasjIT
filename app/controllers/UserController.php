@@ -142,7 +142,7 @@ class UserController extends ControllerBase
 
         if($this->request->isPost())
         {
-            $exist = Users::findFirst(     // Nyari user berdasar Email yang diinput
+            $exist = Users::findFirst(     
                 [
                     'conditions' => 'email = :email:',
                     'bind'       => [
