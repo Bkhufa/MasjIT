@@ -1,5 +1,7 @@
 <?php
-echo "<h2>Kegiatan Masjid</h2><hr>";
+echo "<div class='card'><div class='card-body'>";
+echo "<h2 class='text-center'>Kegiatan Masjid</h2>";
+echo "</div></div>";
 $i = 0;
 
 echo '<div id="accordion">';
@@ -7,7 +9,7 @@ echo '<div id="accordion">';
 if ($kegiatans->count() > 0) {
     foreach ($kegiatans as $kegiatan) { $i++
 ?>
-    <div class="card">
+    <div class="card" style="margin:5px auto">
         <!-- <div class="card-body collapsed" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo"> -->
         <?php echo '<div class="card-header collapsed" id="heading', $i, '" data-toggle="collapse" data-target="#collapse', $i ,'">'; ?>
             <h5 class="mb-0"><?php echo $kegiatan->kegiatan_nama; ?></h5>

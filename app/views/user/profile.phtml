@@ -1,13 +1,17 @@
 
-<h2>User Profile</h2>
-<hr>
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title"><?= $this->session->get('name') ?></h5>
-        <p class="card-text"><?= $this->session->get('email') ?></p>
-        <p class="card-text"><?= $this->session->get('phone') ?></p>
-        <p class="card-text"><?= $this->session->get('address') ?></p>
-        <?= $this->tag->linkTo(["user/logout", 'Logout <i class="fas fa-sign-out-alt" aria-hidden="true"></i> ', "class" => "btn btn-danger"]); ?>
-        <?= $this->tag->linkTo(["user/editProfile", '<i class="fas fa-edit" aria-hidden="true"></i> Edit Profile', "class" => "btn btn-primary"]); ?>
+<?php
+    echo "<div class='card text-center frame fsmall'><div class='card-body'>";
+    echo "<h2>Profile</h2>";
+    echo "</div>";
+?>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"><?= $this->session->get('name') ?></h5>
+            <p class="card-text"><?= $this->session->get('email') ?></p>
+            <p class="card-text"><?= $this->session->get('phone') ?></p>
+            <p class="card-text"><?= $this->session->get('address') ?></p>
+            <?= $this->tag->linkTo(["user/logout", 'Logout <i class="fas fa-sign-out-alt" aria-hidden="true"></i> ', "class" => "btn btn-danger"]); ?>
+            <?= $this->tag->linkTo(["user/editProfile", '<i class="fas fa-edit" aria-hidden="true"></i> Edit Profile', "class" => "btn btn-primary"]); ?>
+        </div>
     </div>
 </div>

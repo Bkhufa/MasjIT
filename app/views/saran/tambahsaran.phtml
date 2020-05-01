@@ -1,36 +1,39 @@
-<h2>Kritik & Saran</h2><hr>
 
-<div class="card">
-    <div class="card-body">
-    
-<!-- <p><?php echo $this->flashSession->output() ?></p> -->
+<div class="frame flarge">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="text-center card-title">Kritik & Saran</h2><hr>
+        
+    <!-- <p><?php echo $this->flashSession->output() ?></p> -->
 
-<?php echo $this->tag->form("saran/add"); ?>
+    <?php echo $this->tag->form("saran/add"); ?>
 
-        <div class="row">
-            <div class="col form-group">
-                <label for="saran_name">Pengirim</label>
-                <?php echo $this->tag->textField(['saran_name', "class" => "form-control", 'placeholder' => 'Hamba Allah', 'value' => 'Hamba Allah']); ?>
-            </div>
+            <div class="row">
+                <div class="col form-group">
+                    <label for="saran_name">Pengirim</label>
+                    <?php echo $this->tag->textField(['saran_name', "class" => "form-control", 'placeholder' => 'Hamba Allah', 'value' => 'Hamba Allah']); ?>
+                </div>
 
-            <div class="col form-group">
-                <label for="saran_category">Kategori</label>
-                <?php echo $this->tag->selectStatic(['saran_category',["Kebersihan" => "Kebersihan", "Keamanan" => "Keamanan", "Kegiatan" => "Kegiatan", "Pelayanan" => "Pelayanan"], "class" => "form-control"]); ?>
-            </div>
+                <div class="col form-group">
+                    <label for="saran_category">Kategori</label>
+                    <?php echo $this->tag->selectStatic(['saran_category',["Kebersihan" => "Kebersihan", "Keamanan" => "Keamanan", "Kegiatan" => "Kegiatan", "Pelayanan" => "Pelayanan"], "class" => "form-control"]); ?>
+                </div>
 
-            <div class="col-12 form-group">
-                <label for="saran_isi">Kritik & Saran</label>
-                <?php echo $this->tag->textArea(["saran_isi", "class" => "form-control"]); ?>
+                <div class="col-12 form-group">
+                    <label for="saran_isi">Kritik & Saran</label>
+                    <?php echo $this->tag->textArea(["saran_isi", "class" => "form-control"]); ?>
+                </div>
+                
+                <div class="col-12 form-group text-center">
+                <?php 
+                    echo $this->tag->submitButton(["Submit", "class" => "btn btn-primary"]), PHP_EOL; 
+                ?>
+                </div>
             </div>
             
-            <div class="col-12 form-group">
-            <?php 
-                echo $this->tag->submitButton(["Submit", "class" => "btn btn-primary"]), PHP_EOL; 
-            ?>
-            </div>
-        </div>
-        
-    </form>
+        </form>
 
+        </div>
     </div>
+
 </div>

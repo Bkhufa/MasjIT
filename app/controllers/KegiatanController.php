@@ -215,19 +215,57 @@ class KegiatanController extends ControllerBase
             ],
         ]);
 
-        if ($kegiatan !== false) {
-            if ($kegiatan->delete() === false) {
-                $messages = $kegiatan->getMessages();
+        $exist =  Pendaftar::find(     
+            [
+                'conditions' => 'fk_kegiatan_id = :kegiatan_id:',
+                'bind'       => [
+                    'kegiatan_id' => $kegiatan_id,
+                ],
+            ]
+        );
+        if (!$exist)
+        {
+            if ($kegiatan !== false) {
+                if ($kegiatan->delete() === false) {
+                    $messages = $kegiatan->getMessages();
+    
+                    foreach ($messages as $message) {
+                        echo "<div class='alert alert-danger'>", $message,  "</div><br>";
+                    }
+                    header("refresh:2;url=/kegiatan/aturkegiatan");
+                } else {
+                    echo "<div class='alert alert-success'> Kegiatan berhasil dihapus!</div>";
+                    header("refresh:2;url=/kegiatan/aturkegiatan");
+                }
+            }
+        }
+        else if ($exist !== false) 
+        {
+            if ($exist->delete() === false) {
+                $messages = $exist->getMessages();
 
                 foreach ($messages as $message) {
                     echo "<div class='alert alert-danger'>", $message,  "</div><br>";
                 }
-                header("refresh:2;url=/kegiatan/aturkegiatan");
+                header("refresh:2;url=/kegiatan/detailkegiatan/");
             } else {
-                echo "<div class='alert alert-success'> Kegiatan berhasil dihapus!</div>";
-                header("refresh:2;url=/kegiatan/aturkegiatan");
+                if ($kegiatan !== false) {
+                    if ($kegiatan->delete() === false) {
+                        $messages = $kegiatan->getMessages();
+        
+                        foreach ($messages as $message) {
+                            echo "<div class='alert alert-danger'>", $message,  "</div><br>";
+                        }
+                        header("refresh:2;url=/kegiatan/aturkegiatan");
+                    } else {
+                        echo "<div class='alert alert-success'> Kegiatan berhasil dihapus!</div>";
+                        header("refresh:2;url=/kegiatan/aturkegiatan");
+                    }
+                }
             }
-        }
+        } 
+
+
     }
 
 }

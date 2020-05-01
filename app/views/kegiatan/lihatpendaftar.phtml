@@ -1,6 +1,8 @@
 <?php
 
-echo "<h2>Peserta kegiatan: ", $kegiatans->kegiatan_nama, "</h2><hr>";
+echo "<div class='card'><div class='card-body'>";
+echo "<h2 class='text-center'>Peserta kegiatan: ", $kegiatans->kegiatan_nama, "</h2>";
+echo "</div></div><br>";
 $i = 0;
 
 if ($pendaftars->count() > 0) {
@@ -20,7 +22,7 @@ if ($pendaftars->count() > 0) {
             <td colspan="5">Banyak peserta: <?php echo $pendaftars->count(); ?></td>
         </tr>
         </tfoot>
-        <tbody>
+        <tbody class='bg-white'>
         <?php foreach ($pendaftars as $pendaftar) { $i++ ?>
             <tr>
                 <td><?php echo $i ?></td>

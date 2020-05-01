@@ -1,0 +1,36 @@
+
+body {
+    /* background-color: #333333; */
+    background-image: url(/img/confectionary.png);
+}
+
+.frame {
+    margin: 0 auto;
+}
+
+.fsmall {
+    width: 40%;
+}
+
+.flarge {
+    width: 60%;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.qr {
+    border: solid #333333 0.5px;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.card-header {
+    background-color: #fcfcfc;
+}
+
+.card-icon {
+    font-size: 90px;
+    margin: 20px auto;
+}

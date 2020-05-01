@@ -1,6 +1,7 @@
 <?php
-
-echo "<h2>Kelola Kegiatan</h2><hr>";
+echo "<div class='card'><div class='card-body'>";
+echo "<h2 class='text-center'>Kelola Kegiatan</h2>";
+echo "</div></div><hr>";
 $i = 0;
 
 if ($kegiatans->count() > 0) {
@@ -20,7 +21,7 @@ if ($kegiatans->count() > 0) {
             <th><a href="#modal-tambah" class="btn btn-primary" data-toggle="modal" data-placement="top" title="Tambah kegiatan baru"><i class="fas fa-plus" aria-hidden="true"></i></a></th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="bg-white">
         <?php foreach ($kegiatans as $kegiatan) { $i++ ?>
             <tr>
                 <td class="align-middle"><?php echo $i ?></td>
@@ -34,20 +35,10 @@ if ($kegiatans->count() > 0) {
                     height="150" width="100" 
                     src="data:image/jpeg;base64,<?php echo $kegiatan->getKegiatanFoto() ?>">
                 </td>
-                <td>
-                    <a href="#modal-edit" class="btn btn-info" data-toggle="modal" data-placement="top" title="Edit Kegiatan"><i class="fas fa-edit" aria-hidden="true"></i></a>
-                    <a href="#modal-delete" class="btn btn-danger" data-toggle="modal" data-placement="top" title="Hapus Kegiatan"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
-                    <?php
-                        echo $this->tag->linkTo([
-                            "/kegiatan/lihatpendaftar/".$kegiatan->kegiatan_id,
-                            // '<i class="fas fa-users">',
-                            "Pendaftar",
-                            "class" => "btn btn-danger",
-                            "data-toggle" =>"tooltip",
-                            "data-placement" => "top",
-                            'title' => "Lihat Pendaftar"
-                        ]);
-                    ?>
+                <td class="align-middle" >
+                    <a style="width:45px;" href="#modal-edit" class="btn btn-info" data-toggle="modal" data-placement="top" title="Edit Kegiatan"><i class="fas fa-edit" aria-hidden="true"></i></a>
+                    <a style="width:45px; margin: 5px auto" href="#modal-delete" class="btn btn-danger" data-toggle="modal" data-placement="top" title="Hapus Kegiatan"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
+                    <?php echo '<a href="/kegiatan/lihatpendaftar/', $kegiatan->kegiatan_id, '"class="btn btn-warning text-white" data-placement="top" title="Lihat Peserta"><i class="fas fa-users" aria-hidden="true"></i></a>'; ?>
                 </td>
             </tr>
         <?php } ?>

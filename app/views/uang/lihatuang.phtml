@@ -1,30 +1,30 @@
 <?php
 
-$i = 0;
-$j = 0;
-echo "<div class='row' style='margin: 10px 0px'>";
+echo "<div class='card '><div class='card-body row'>";
 echo "<h2 class='col'>Riwayat Keuangan</h2>";
 echo "<h2 class='col text-right'>Total keuangan: <span class='font-weight-bold'> Rp ", number_format($totalUang, 2, ",", "."); "</span></h2>";
 echo "</div><hr>";
+$i = 0;
+$j = 0;
+// echo "<div class='row' style='margin: 10px 0px'>";
+// echo "</div><hr>";
 ?>
-<br>
-<ul class="nav nav-pills nav-fill" id="myTab" role="tablist">
-  <li class="nav-item">
+<ul class="nav nav-pills nav-fill bg-white font-weight-bold" id="myTab" role="tablist">
+  <li class="nav-item" style="margin: 0 10px;">
     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Donasi</a>
   </li>
-  <li class="nav-item" style="margin: 0 10px;">
+  <li class="nav-item">
     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Pengeluaran</a>
   </li>
-  <!-- <li class="nav-item"> -->
-    <a class="btn border-info" id="profile-tab" data-toggle="modal" href="#modal-tambah" role="tab" aria-controls="profile" aria-selected="false">Catatat Pengeluaran &nbsp;<i class="fas fa-plus" aria-hidden="true"></i></a>
-  <!-- </li> -->
+    <a class="btn border-info" style="margin: 0px 10px 10px 10px" id="profile-tab" data-toggle="modal" href="#modal-tambah" role="tab" aria-controls="profile" aria-selected="false">Catatat Pengeluaran &nbsp;<i class="fas fa-plus" aria-hidden="true"></i></a>
 </ul>
+</div>
+<hr>
 
 <div class="tab-content" id="myTabContent">
 <?php
 if ($donasi->count() > 0) {
     ?>
-    <br>
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <!-- <h3 class="text-center">Donasi Jamaah</h3> -->
         <table class="table table-bordered table-hover text-center">
@@ -43,7 +43,7 @@ if ($donasi->count() > 0) {
                 <td class="text-left bg-secondary text-white font-weight-bold" colspan="6">Total donasi: <?php echo "Rp ", number_format(abs($totalDonasi), 0, ".", "."); ?></td>
             </tr>
             </tfoot>
-            <tbody>
+            <tbody class='bg-white'>
             <?php foreach ($donasi as $uang) { $i++ ?>
                 <tr >
                     <td class="align-middle"><?php echo $i ?></td>
@@ -52,7 +52,7 @@ if ($donasi->count() > 0) {
                     <td class="align-middle"><?php echo number_format(abs($uang->uang_nominal), 0, ".", "."); ?></td>
                     <td class="align-middle"><?php echo $uang->updated; ?></td>
                     <td class="align-middle"><img class="img-responsive center-block" 
-                        height="200" width="100" 
+                        height="150" width="75" 
                         src="data:image/jpeg;base64,<?php echo $uang->getUangBukti() ?>">
                     </td>
                 </tr>
@@ -83,7 +83,7 @@ if ($pengeluarans->count() > 0) {
                 <td class="text-left bg-danger text-white font-weight-bold" colspan="6">Total pengeluaran: <?php echo "Rp ", number_format(abs($totalPengeluaran), 0, ".", "."); ?></td>
             </tr>
             </tfoot>
-            <tbody>
+            <tbody class="bg-white">
             <?php foreach ($pengeluarans as $uang) { $j++ ?>
                 <tr>
                     <td class="align-middle"><?php echo $j ?></td>

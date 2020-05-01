@@ -1,104 +1,110 @@
-<h3 class="col-12 card-title"><?php echo $kegiatan->kegiatan_nama; ?></h3><hr>
-<div class="card-body row align-middle">
-    <img class="col-4 img-responsive center-block" 
-                    height="360" width="260" 
-                    src="data:image/jpeg;base64,<?php echo $kegiatan->getKegiatanFoto() ?>">
-    <div class="col-8 row">
-        <h5 class="col-12"><?php echo $kegiatan->kegiatan_deskripsi; ?></h5>
-        <p class="col-12"><i class="fas fa-clock">&nbsp;</i><?php echo $kegiatan->kegiatan_waktu; ?></p>
-        <p class="col-12"><i class="far fa-calendar-alt">&nbsp;</i><?php echo $kegiatan->kegiatan_tanggal; ?></p>
-        <p class="col-12"><i class="fas fa-map-marker-alt">&nbsp;</i><?php echo $kegiatan->kegiatan_lokasi; ?></p>
-        <p class="col-12"><i class="fas fa-users">&nbsp;</i>&nbsp;Pendaftar:&nbsp;<?php echo $totalpendaftar; ?></p>
-        <div class="text-center col-9">
-            <a href="#modal-daftar" class="col-12 btn btn-info align-middle" data-toggle="modal" data-placement="top" title="Daftar Kegiatan">Daftar Kegiatan</a>
-        </div>
-        <div class="text-center col-3">
-            <a href="#modal-batal" class="col-12 btn btn-danger align-middle" data-toggle="modal" data-placement="top" title="Batalkan Pendaftaran">Batal Daftar</a>
+
+<div class="card">
+  <div class="card-body">
+    <h3 class="col-12 card-title"><?php echo $kegiatan->kegiatan_nama; ?></h3><hr>
+    <div class="card-body row align-middle">
+        <img class="col-4 img-responsive center-block" 
+                        height="360" width="260" 
+                        src="data:image/jpeg;base64,<?php echo $kegiatan->getKegiatanFoto() ?>">
+        <div class="col-8 row">
+            <h5 class="col-12"><?php echo $kegiatan->kegiatan_deskripsi; ?></h5>
+            <p class="col-12"><i class="fas fa-clock">&nbsp;</i><?php echo $kegiatan->kegiatan_waktu; ?></p>
+            <p class="col-12"><i class="far fa-calendar-alt">&nbsp;</i><?php echo $kegiatan->kegiatan_tanggal; ?></p>
+            <p class="col-12"><i class="fas fa-map-marker-alt">&nbsp;</i><?php echo $kegiatan->kegiatan_lokasi; ?></p>
+            <p class="col-12"><i class="fas fa-users">&nbsp;</i>&nbsp;Pendaftar:&nbsp;<?php echo $totalpendaftar; ?></p>
+            <div class="text-center col-9">
+                <a href="#modal-daftar" class="col-12 btn btn-info align-middle" data-toggle="modal" data-placement="top" title="Daftar Kegiatan">Daftar Kegiatan</a>
+            </div>
+            <div class="text-center col-3">
+                <a href="#modal-batal" class="col-12 btn btn-danger align-middle" data-toggle="modal" data-placement="top" title="Batalkan Pendaftaran">Batal Daftar</a>
+            </div>
         </div>
     </div>
-</div>
 
 
-<div class="modal fade" id="modal-daftar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <?php echo '<h5 class="modal-title" id="exampleModalLongTitle">Daftar ', $kegiatan->kegiatan_nama,'</h5>'; ?>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+    <div class="modal fade" id="modal-daftar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <?php echo '<h5 class="modal-title" id="exampleModalLongTitle">Daftar ', $kegiatan->kegiatan_nama,'</h5>'; ?>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <?php
+            echo $this->tag->form(
+                [
+                    "kegiatan/daftarkegiatan/".$kegiatan->kegiatan_id,
+                    "autocomplete" => "off",
+                    "class" => "form-horizontal",
+                    "enctype" => "multipart/form-data"
+                ]
+            );
+          ?>  
+            <div class="modal-body">
+                <div class="row">
+                        <div class="col-6 form-group">
+                            <label for="pendaftar_nama">Nama</label>
+                            <?php echo $this->tag->textField(["pendaftar_nama", "class" => "form-control", "required" => "1"]); ?>
+                        </div>
+
+                        <div class="col-6 form-group">
+                            <label for="pendaftar_contact">Email</label>
+                            <?php echo $this->tag->textField(["pendaftar_contact", "class" => "form-control", "required" => "1"]); ?>
+                        </div>
+                                        
+                        <div class="col-12 form-group">
+                            <label for="pendaftar_alamat">Alamat</label>
+                            <?php echo $this->tag->textArea(["pendaftar_alamat", "class" => "form-control", "required" => "1"]); ?>
+                        </div>
+                        
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <?php echo $this->tag->submitButton(["Submit", "class" => "btn btn-primary"]), PHP_EOL; ?>
+            </div>
+          </form>
+        </div>
       </div>
-      <?php
-        echo $this->tag->form(
-            [
-                "kegiatan/daftarkegiatan/".$kegiatan->kegiatan_id,
-                "autocomplete" => "off",
-                "class" => "form-horizontal",
-                "enctype" => "multipart/form-data"
-            ]
-        );
-       ?>  
-        <div class="modal-body">
-            <div class="row">
-                    <div class="col-6 form-group">
-                        <label for="pendaftar_nama">Nama</label>
-                        <?php echo $this->tag->textField(["pendaftar_nama", "class" => "form-control", "required" => "1"]); ?>
-                    </div>
+    </div>
 
-                    <div class="col-6 form-group">
+    <div class="modal fade" id="modal-batal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <?php echo '<h5 class="modal-title" id="exampleModalLongTitle">Batalkan pendaftaran ', $kegiatan->kegiatan_nama,'</h5>'; ?>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <?php
+            echo $this->tag->form(
+                [
+                    "kegiatan/canceldaftar/".$kegiatan->kegiatan_id,
+                    "autocomplete" => "off",
+                    "class" => "form-horizontal",
+                    "enctype" => "multipart/form-data"
+                ]
+            );
+          ?>  
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col form-group">
                         <label for="pendaftar_contact">Email</label>
                         <?php echo $this->tag->textField(["pendaftar_contact", "class" => "form-control", "required" => "1"]); ?>
                     </div>
-                                    
-                    <div class="col-12 form-group">
-                        <label for="pendaftar_alamat">Alamat</label>
-                        <?php echo $this->tag->textArea(["pendaftar_alamat", "class" => "form-control", "required" => "1"]); ?>
-                    </div>
-                    
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <?php echo $this->tag->submitButton(["Submit", "class" => "btn btn-primary"]), PHP_EOL; ?>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="modal-batal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <?php echo '<h5 class="modal-title" id="exampleModalLongTitle">Batalkan pendaftaran ', $kegiatan->kegiatan_nama,'</h5>'; ?>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <?php
-        echo $this->tag->form(
-            [
-                "kegiatan/canceldaftar/".$kegiatan->kegiatan_id,
-                "autocomplete" => "off",
-                "class" => "form-horizontal",
-                "enctype" => "multipart/form-data"
-            ]
-        );
-       ?>  
-        <div class="modal-body">
-            <div class="row">
-                <div class="col form-group">
-                    <label for="pendaftar_contact">Email</label>
-                    <?php echo $this->tag->textField(["pendaftar_contact", "class" => "form-control", "required" => "1"]); ?>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <?php echo $this->tag->submitButton(["Hapus", "class" => "btn btn-danger"]), PHP_EOL; ?>
+            </div>
+          </form>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <?php echo $this->tag->submitButton(["Submit", "class" => "btn btn-primary"]), PHP_EOL; ?>
-        </div>
-      </form>
+      </div>
     </div>
-  </div>
-</div>
 
+  </div>
+  
+</div>

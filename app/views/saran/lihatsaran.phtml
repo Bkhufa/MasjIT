@@ -1,6 +1,7 @@
 <?php
-
-echo "<h2>Kritik & Saran dari jamaah</h2><hr>";
+echo "<div class='card'><div class='card-body'>";
+echo "<h2 class='text-center'>Kritik & Saran dari jamaah</h2>";
+echo "</div></div><hr>";
 $i = 0;
 
 if ($sarans->count() > 0) {
@@ -15,12 +16,12 @@ if ($sarans->count() > 0) {
             <th>Waktu</th>
         </tr>
         </thead>
-        <tfoot>
+        <tfoot class="bg-white">
         <tr>
             <td colspan="5">Total Kritik & Saran: <?php echo $sarans->count(); ?></td>
         </tr>
         </tfoot>
-        <tbody>
+        <tbody class="bg-white">
         <?php foreach ($sarans as $saran) { $i++ ?>
             <tr>
                 <td><?php echo $i ?></td>

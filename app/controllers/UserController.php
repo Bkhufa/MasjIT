@@ -157,7 +157,6 @@ class UserController extends ControllerBase
                 $success = false;
                 header("refresh:2;url=/user/signuppage");
                 echo "<div class='alert alert-danger'> Email already used, please use a new one! </div>";
-                // exit;
                 
             } else
             {
@@ -176,7 +175,6 @@ class UserController extends ControllerBase
             }
         }
         if (!$success) {
-            // if ($success) {
             $messages = $user->getMessages();
 
             foreach ($messages as $message) {
@@ -187,8 +185,6 @@ class UserController extends ControllerBase
             echo "<div class='alert alert-success'> Sign up successful! </div>";
             header("refresh:2;url=/user/loginpage");
         }
-        // $this->view->message = $message;
-        // $this->view->disable();
     }
 
 }
